@@ -6,7 +6,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.allSettled([signUpUser(firstName, lastName), uploadPhoto(fileName)])
     .then((results) => {
       results.forEach((result) => {
-        newArray.push({ status: result.status, value: result.value || result.reason });
+        newArray.push({ status: result.status, value: result.value || result.reason.message });
       });
       return newArray;
     });
