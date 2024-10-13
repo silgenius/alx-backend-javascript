@@ -11,7 +11,7 @@ export default class Building {
     }
 
     if (this.constructor !== Building) {
-      this.evacuationWarningMessage();
+      this.constructor.evacuationWarningMessage();
     }
   }
 
