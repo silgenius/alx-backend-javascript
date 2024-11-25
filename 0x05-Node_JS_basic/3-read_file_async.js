@@ -24,7 +24,7 @@ function countStudents(path) {
         if (field === 'CS') {
           CSCount += 1;
           cs.push(firstname);
-        } else if (field === 'CS') {
+        } else if (field === 'SWE') {
           SWECount += 1;
           swe.push(firstname);
         }
