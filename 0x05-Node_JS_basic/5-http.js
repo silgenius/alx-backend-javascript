@@ -14,9 +14,16 @@ const app = createServer((req, res) => {
     res.end('Hello Holberton School!');
   } else if (parsedUrl.pathname === '/students') {
     res.write('This is the list of our students')
-    countStudents(process.argv[2]).then(() => {}
-    )
-    res.end()
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('readable', () => {
+      const data = process.stdin.read();
+      if (data !== null) {
+        res.write(data)
+      }
+    });
+    countStudents(process.argv[2]).then(() => {
+    res.end();
+    });
   }
 });
 
