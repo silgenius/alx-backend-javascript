@@ -55,11 +55,10 @@ const app = createServer((req, res) => {
     res.write('This is the list of our students');
     countStudents(process.argv[2])
       .then((result) => {
-        res.write(result);
-        res.end();
+        res.end(result);
       })
-      .catch(() => {
-        res.end();
+      .catch((error) => {
+        res.end(`\n${error.toString()}`);
       });
   }
 });
