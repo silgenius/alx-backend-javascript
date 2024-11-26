@@ -1,4 +1,4 @@
-const http = require('http');
+const { createServer } = require('http');
 const { readFile } = require('fs');
 const url = require('url');
 
@@ -57,8 +57,6 @@ const app = createServer((req, res) => {
   }
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(1245);
 
 module.exports = app;
