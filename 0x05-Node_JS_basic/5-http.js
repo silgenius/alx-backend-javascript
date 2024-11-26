@@ -46,7 +46,7 @@ Number of students in SWE: ${SWECount}. List: ${swe.join(', ')}`);
 }
 
 const hostname = '127.0.0.1';
-const port = '1245';
+const port = 1245;
 
 const app = createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
