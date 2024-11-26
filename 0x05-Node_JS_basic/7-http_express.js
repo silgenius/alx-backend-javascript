@@ -61,7 +61,7 @@ app.get('/students', (req, res) => {
       res.send(resp);
     })
     .catch((error) => {
-      resp += `\n${error.toString()}`;
+      resp += `\n${error.message}`;
       res.send(resp);
     });
 });
