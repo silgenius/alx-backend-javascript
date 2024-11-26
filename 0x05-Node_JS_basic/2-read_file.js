@@ -14,19 +14,22 @@ function countStudents(path) {
     students.shift(); // Remove header row
 
     for (let student of students) {
-      NUMBER_OF_STUDENTS += 1;
       student = student.split(',').map((s) => s.trim());
-      const field = student[3];
-      const firstname = student[0];
+      if (student[0]) { // check if line is not empty or undefined
+        NUMBER_OF_STUDENTS += 1;
 
-      if (field === 'CS') {
-        CSCount += 1;
-        cs.push(firstname);
-      } else if (field === 'SWE') {
-        SWECount += 1;
-        swe.push(firstname);
+        const field = student[3];
+        const firstname = student[0];
+
+        if (field === 'CS') {   
+          CSCount += 1;
+          cs.push(firstname);
+        } else if (field === 'SWE') {
+          SWECount += 1;
+          swe.push(firstname);
+        }
       }
-    }
+  }
 
     console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
     console.log(`Number of students in CS: ${CSCount}. List: ${cs.join(', ')}`);
