@@ -27,7 +27,7 @@ module.exports = {
         'LabeledStatement',
         'WithStatement',
       ],
-      "linebreak-style": ["error", "windows"]
+      "linebreak-style": ["error", "windows", "linux"]
     },
     overrides:[
       {
