@@ -52,13 +52,13 @@ const app = createServer((req, res) => {
   if (parsedUrl.pathname === '/') {
     res.end('Hello Holberton School!');
   } else if (parsedUrl.pathname === '/students') {
-    res.write('This is the list of our students\n');
+    res.write('This is the list of our students');
     countStudents(process.argv[2])
       .then((result) => {
         res.end(result);
       })
       .catch((error) => {
-        res.end(`${error.toString()}`);
+        res.end(`\n${error.toString()}`);
       });
   }
 });
