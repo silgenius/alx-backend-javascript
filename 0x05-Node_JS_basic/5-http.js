@@ -1,60 +1,73 @@
-const http = require('http');
-const { readFile } = require('fs');
+const { createServer } = require('http');
+const url = require('url');
+const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
     if (!path) {
       reject(new Error('Cannot load the database'));
-    } else {
-      readFile(path, { encoding: 'utf8', flag: 'r' }, (err, data) => {
-        if (err) {
-          reject(new Error('Cannot load the database'));
-        } else {
-          const obj = {};
-          let total = 0;
-          for (const row of data.trim().split('\n')) {
-            const rowData = row.split(',');
-            if (rowData[0] !== 'firstname') {
-              if (rowData[3] in obj) {
-                obj[rowData[3]].push(rowData[0]);
-                total += 1;
-              } else {
-                obj[rowData[3]] = [rowData[0]];
-                total += 1;
-              }
-            }
-          }
-          let response = `Number of students: ${total}\n`;
-          for (const [key, value] of Object.entries(obj)) {
-            response += `Number of students in ${key}: ${
-              value.length
-            }. List: ${value.join(', ')}\n`;
-          }
-          response = response.slice(0, -1);
-          resolve(response);
-        }
-      });
     }
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
+      let NUMBER_OF_STUDENTS = 0;
+      let CSCount = 0;
+      let SWECount = 0;
+
+      const cs = [];
+      const swe = [];
+      const students = data.split('\n');
+      students.shift();
+
+      for (let student of students) {
+        student = student.split(',').map((s) => s.trim());
+        if (student[0]) { // check if line is not empty or undefined
+          NUMBER_OF_STUDENTS += 1;
+          const field = student[3];
+          const firstname = student[0];
+
+          if (field === 'CS') {
+            CSCount += 1;
+            cs.push(firstname);
+          } else if (field === 'SWE') {
+            SWECount += 1;
+            swe.push(firstname);
+          }
+        }
+      }
+      resolve(`
+Number of students: ${NUMBER_OF_STUDENTS}
+Number of students in CS: ${CSCount}. List: ${cs.join(', ')}
+Number of students in SWE: ${SWECount}. List: ${swe.join(', ')}`);
+    });
   });
 }
 
-const app = http.createServer((req, res) => {
-  if (req.url === '/') {
+const hostname = '127.0.0.1';
+const port = 1245;
+
+const app = createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+
+  res.setHeader('Content-Type', 'text/plain');
+  if (parsedUrl.pathname === '/') {
     res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
-    let resp = 'This is the list of our students\n';
+  } else if (parsedUrl.pathname === '/students') {
+    res.write('This is the list of our students');
     countStudents(process.argv[2])
       .then((result) => {
-        resp += result;
-        res.end(resp);
+        res.end(result);
       })
       .catch((error) => {
-        resp += error instanceof Error ? error.message : error.toString();
-        res.end(resp);
+        res.end(`\n${error.message}`);
       });
   }
 });
 
-app.listen(1245);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 
 module.exports = app;
