@@ -10,7 +10,7 @@ function countStudents(path) {
     const cs = [];
     const swe = [];
 
-    let students = data.split('\n');
+    const students = data.split('\n');
     students.shift(); // Remove header row
 
     for (let student of students) {
@@ -21,7 +21,7 @@ function countStudents(path) {
         const field = student[3];
         const firstname = student[0];
 
-        if (field === 'CS') {   
+        if (field === 'CS') {
           CSCount += 1;
           cs.push(firstname);
         } else if (field === 'SWE') {
@@ -29,14 +29,14 @@ function countStudents(path) {
           swe.push(firstname);
         }
       }
-  }
+    }
 
     console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
     console.log(`Number of students in CS: ${CSCount}. List: ${cs.join(', ')}`);
     console.log(`Number of students in SWE: ${SWECount}. List: ${swe.join(', ')}`);
   } catch (err) {
     console.log(err);
-    throw new Error('Cannot load the studentbase');
+    throw new Error('Cannot load the database');
   }
 }
 
