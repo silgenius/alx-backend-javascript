@@ -1,5 +1,6 @@
 const http = require('http');
 const { readFile } = require('fs');
+const url = require('url');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
@@ -38,23 +39,26 @@ function countStudents(path) {
   });
 }
 
-const app = http.createServer((req, res) => {
-  if (req.url === '/') {
+const app = createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+
+  res.setHeader('Content-Type', 'text/plain');
+  if (parsedUrl.pathname === '/') {
     res.end('Hello Holberton School!');
-  }
-  if (req.url === '/students') {
-    let response = 'This is the list of our students\n';
+  } else if (parsedUrl.pathname === '/students') {
+    res.write('This is the list of our students\n');
     countStudents(process.argv[2])
-      .then((resp) => {
-        response += resp;
-        res.end(response);
+      .then((result) => {
+        res.end(result);
       })
-      .catch((err) => {
-        response += err instanceof Error ? err.message : err.toString();
-        res.end(response);
+      .catch((error) => {
+        res.end(`\n${error.toString()}`);
       });
   }
 });
 
-app.listen(1245);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
 module.exports = app;
