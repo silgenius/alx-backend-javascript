@@ -34,7 +34,10 @@ function countStudents(path) {
           }
         }
       }
-      resolve(`Number of students: ${NUMBER_OF_STUDENTS}\nNumber of students in CS: ${CSCount}. List: ${cs.join(', ')}\nNumber of students in SWE: ${SWECount}. List: ${swe.join(', ')}`);
+      resolve(`
+Number of students: ${NUMBER_OF_STUDENTS}
+Number of students in CS: ${CSCount}. List: ${cs.join(', ')}
+Number of students in SWE: ${SWECount}. List: ${swe.join(', ')}`);
     });
   });
 }
@@ -49,7 +52,7 @@ const app = createServer((req, res) => {
   if (parsedUrl.pathname === '/') {
     res.end('Hello Holberton School!');
   } else if (parsedUrl.pathname === '/students') {
-    res.write('This is the list of our students\n');
+    res.write('This is the list of our students');
     countStudents(process.argv[2])
       .then((result) => {
         res.write(result);
@@ -64,3 +67,5 @@ const app = createServer((req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+module.exports = app
