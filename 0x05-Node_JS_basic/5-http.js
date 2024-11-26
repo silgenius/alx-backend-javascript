@@ -1,6 +1,5 @@
-const { createServer } = require('http');
+const http = require('http');
 const { readFile } = require('fs');
-const url = require('url');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
@@ -39,20 +38,19 @@ function countStudents(path) {
   });
 }
 
-const app = createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-
-  res.setHeader('Content-Type', 'text/plain');
-  if (parsedUrl.pathname === '/') {
+const app = http.createServer((req, res) => {
+  if (req.url === '/') {
     res.end('Hello Holberton School!');
-  } else if (parsedUrl.pathname === '/students') {
-    res.write('This is the list of our students\n');
+  } else if (req.url === '/students') {
+    let resp = 'This is the list of our students\n';
     countStudents(process.argv[2])
       .then((result) => {
-        res.end(result);
+        resp += result;
+        res.end(resp);
       })
       .catch((error) => {
-        res.end(`\n${error.toString()}`);
+        resp += error instanceof Error ? error.message : error.toString();
+        res.end(resp);
       });
   }
 });
