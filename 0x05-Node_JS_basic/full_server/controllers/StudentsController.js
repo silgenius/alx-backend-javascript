@@ -28,9 +28,10 @@ Number of students in ${field}: ${result[field].length}. List: ${result[field].j
       res.status(500).end('Major parameter must be CS or SWE');
     } else if (major === 'SWE' || major === 'CS') {
       let resp;
+      resp = 'This is the list of our students';
       readDatabase(process.argv[2])
         .then((result) => {
-          resp = `List: ${result[major].join(', ')}`;
+          resp += `\nList: ${result[major].join(', ')}`;
           res.status(200).end(resp);
         })
         .catch((error) => {
