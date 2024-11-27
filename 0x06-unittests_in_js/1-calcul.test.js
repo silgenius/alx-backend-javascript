@@ -9,8 +9,20 @@ describe('test calculateNumber(type, a, b)', () => {
   it('takes in type(sum) and find the negative rounded result', () => {
     assert.equal(calculateNumber('SUM', 1.4, -4.5), -3);
   });
+  it('takes in type(sum) with a rounded arg and find the rounded result', () => {
+    assert.equal(calculateNumber('SUM', 1.4, 4), 5);
+  });
+  it('takes in type(sum) with both args rounded and find the negative rounded result', () => {
+    assert.equal(calculateNumber('SUM', 1, 4), 5);
+  });
   it('takes in type(subtract) and return the rounded result', () => {
+    assert.equal(calculateNumber('SUBTRACT', 1.4, 4), -3);
+  });
+  it('takes in type(subtract) and return the negative rounded result', () => {
     assert.equal(calculateNumber('SUBTRACT', 1.4, 4.5), -4);
+  });
+  it('takes in type(subtract) and return the positive rounded result', () => {
+    assert.equal(calculateNumber('SUBTRACT', 4.5, 1.4), 4);
   });
   it('takes in type(divide) and return the rounded result', () => {
     assert.equal(calculateNumber('DIVIDE', 1.4, 4.5), 0.2);
