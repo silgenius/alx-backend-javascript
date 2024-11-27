@@ -16,4 +16,10 @@ describe("calculateNumber", function() {
     it("takes in floats and return the sum of their of rounded int", function() {
         assert.equal(calculateNumber(1.5, 3.7), 6)
     });
+    it("should return -3 when -4.3 and 1.2 are added", function() {
+        assert.equal(calculateNumber(-4.3, 1.2), -3);
+    });
+    it("should return -6 when -3.7 and -1.5 are added", function() {
+        assert.equal(calculateNumber(-3.7, -1.2), -5);
+    });
 });
