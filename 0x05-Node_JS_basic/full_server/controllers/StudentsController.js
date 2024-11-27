@@ -3,7 +3,7 @@ const readDatabase = require('../utils')
 class StudentsController {
     static getAllStudents(req, res) {
         resp = 'This is the list of our students'
-        readDatabase('../../database.csv')
+        readDatabase(process.argv[4])
         .then((result) => {
             for (let field in result) {
                 field_resp = `
@@ -37,3 +37,5 @@ Number of students in CS: ${result[field].length}. List: ${result[field].join(',
         res.status(500).send('Major parameter must be CS or SWE')
     }
 }
+
+export default StudentsController;
