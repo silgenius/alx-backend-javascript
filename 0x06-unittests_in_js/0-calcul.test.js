@@ -17,6 +17,6 @@ describe("calculateNumber", function() {
         assert.equal(calculateNumber(1.5, 3.7), 6)
     });
     it("takes two negative numbers and return their sum", function() {
-        assert.equal(calculateNumber(-4.3, 1.2), -3);
+        assert.equal(calculateNumber(-4.2, 1.2), -3);
     });
 });
