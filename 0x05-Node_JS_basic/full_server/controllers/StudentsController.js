@@ -9,7 +9,7 @@ class StudentsController {
         for (const field in result) {
           if (Object.prototype.hasOwnProperty.call(result, field)) {
             const FieldResp = `
-Number of students in CS: ${result[field].length}. List: ${result[field].join(', ')}`;
+Number of students in ${field}: ${result[field].length}. List: ${result[field].join(', ')}`;
             resp += FieldResp;
           }
         }
