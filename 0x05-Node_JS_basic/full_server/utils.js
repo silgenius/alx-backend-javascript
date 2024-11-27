@@ -9,6 +9,7 @@ export default function readDatabase(filepath) {
     fs.readFile(filepath, 'utf8', (err, data) => {
       if (err) {
         reject(new Error('Cannot load the database'));
+        return;
       }
 
       const students = data.split('\n');
