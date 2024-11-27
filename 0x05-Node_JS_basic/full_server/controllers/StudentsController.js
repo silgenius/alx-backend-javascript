@@ -7,9 +7,11 @@ class StudentsController {
     readDatabase(process.argv[2])
       .then((result) => {
         for (const field in result) {
-          let FieldResp = `
+          if (Object.prototype.hasOwnProperty.call(result, field)) {
+            const FieldResp = `
 Number of students in CS: ${result[field].length}. List: ${result[field].join(', ')}`;
-          resp += FieldResp;
+            resp += FieldResp;
+          }
         }
 
         res.status(200).send(resp);
@@ -22,7 +24,6 @@ Number of students in CS: ${result[field].length}. List: ${result[field].join(',
 
   static getAllStudentsByMajor(req, res) {
     const { major } = req.params;
-	    console.log(major);
     if (major !== 'CS' && major !== 'SWE') {
       res.status(500).end('Major parameter must be CS or SWE');
     } else if (major === 'SWE' || major === 'CS') {
