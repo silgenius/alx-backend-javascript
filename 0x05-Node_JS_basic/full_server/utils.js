@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function readDatabase(filepath) {
+export default function readDatabase(filepath) {
   return new Promise((resolve, reject) => {
     if (!filepath) {
       reject(new Error('Cannot load the database'));
@@ -31,5 +31,3 @@ function readDatabase(filepath) {
     });
   });
 }
-
-module.exports = readDatabase;
