@@ -8,7 +8,7 @@ function readDatabase(filepath) {
 
     fs.readFile(filepath, 'utf8', (err, data) => {
       if (err) {
-        reject(err);
+        reject(new Error('Cannot load the database'));
       }
 
       const students = data.split('\n');
