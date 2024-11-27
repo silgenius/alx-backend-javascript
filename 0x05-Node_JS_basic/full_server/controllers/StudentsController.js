@@ -17,7 +17,7 @@ Number of students in ${field}: ${result[field].length}. List: ${result[field].j
         res.status(200).send(resp);
       })
       .catch((error) => {
-        resp += `\n${error.message}`;
+        resp = `${error.message}`;
         res.status(500).send(resp);
       });
   }
