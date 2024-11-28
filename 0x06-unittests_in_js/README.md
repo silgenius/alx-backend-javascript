@@ -49,15 +49,14 @@ Once you have Node.js installed, follow these steps to set up the project:
 
 3. Install the required dependencies:
 
-    ``` npm install
-
+    ```
+    npm install
     ```
 
 4. Run the tests:
 
     ```
     npm test
-
     ```
 
 ## Author(s)
