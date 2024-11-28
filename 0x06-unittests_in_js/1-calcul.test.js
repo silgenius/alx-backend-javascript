@@ -39,4 +39,7 @@ describe('test calculateNumber(type, a, b)', () => {
   it('takes in type(divide) with numerator as 0', () => {
     assert.equal(calculateNumber('DIVIDE', 0, 1.4), 0);
   });
+  it('takes in not supported type, expects undefined', () => {
+    assert.equal(calculateNumber('MULTPLY', 0, 3), undefined);
+  });
 });
