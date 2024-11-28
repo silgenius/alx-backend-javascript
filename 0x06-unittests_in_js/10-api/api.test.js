@@ -66,8 +66,8 @@ describe("test express web app", function() {
     it("tests an endpoint POST /login that returns the message Welcome :username", function(done) {
         request.post({
             url: 'http://localhost:7865/login',
-            json: true, // Automatically sends the request body as JSON and sets Content-Type
-            body: { userName: 'John Doe' } // Send body data correctly formatted
+            json: true,
+            body: { userName: 'John Doe' }
         }, (error, response, body) => {
             if (error) {
                 done(error);
