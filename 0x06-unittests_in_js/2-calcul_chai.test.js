@@ -17,4 +17,7 @@ describe("Test calculateNumber(type, a, b)",function() {
     it("takes in type(divide) with denominator as 0", function() {
         expect(calculateNumber('DIVIDE', 1.4, 0)).to.equal('Error');
     });
+    it("an arg that rounds to 0", function() {
+        expect(calculateNumber('DIVIDE', -21.5, -0.5)).to.equal('Error');
+    });
 });
